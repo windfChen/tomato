@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/tomato/tomato",
+    "pages/friend/friend",
+    "pages/index/index",
+    "pages/addCgi/addCgi",
+    "pages/story/story",
+    "pages/demo/demo"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "协作番茄",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/tomato/tomato",
+        "text": "专注",
+        "iconPath": "images/doing.png",
+        "selectedIconPath": "images/doing_s.png"
+      },
+      {
+        "pagePath": "pages/friend/friend",
+        "text": "好友",
+        "iconPath": "images/friend.png",
+        "selectedIconPath": "images/friend_s.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "我的",
+        "iconPath": "images/me.png",
+        "selectedIconPath": "images/me_s.png"
+      }
+    ],
+    "position": "bottom",
+    "borderStyle": "white",
+    "selectedColor": "#1296db"
+  }
+}

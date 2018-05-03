@@ -1,0 +1,32 @@
+<!--pages/friend/friend.wxml-->
+<view>
+  <view class="friend-info" wx:for="{{friends}}" >
+    <image
+        class="friend-info-avatar"
+        src="{{item.avatarUrl}}"
+        background-size="cover"
+    ></image>
+    <view class="friend-info-text">
+      <view class="friend-info-nickname">
+        <text>{{item.nickName}}</text>
+      </view>
+      <view class="friend-info-status friend-info-status-s" wx:if="{{item.tomatoStatus == 'S'}}">
+        <text>专注</text>
+      </view>
+      <view class="friend-info-status friend-info-status-e" wx:if="{{item.tomatoStatus == 'E'}}">
+        <text>休息</text>
+      </view>
+      <view class="friend-info-status friend-info-status-n" wx:if="{{item.tomatoStatus == ''}}">
+        <text>未开始</text>
+      </view>
+      <view class="friend-info-status friend-info-status-o" wx:if="{{item.tomatoStatus == 'O'}}">
+        <text>已超时</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能 -->
+  <view>
+    <button open-type="share">分享添加好友</button>
+  </view>
+</view>

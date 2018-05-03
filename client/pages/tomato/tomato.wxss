@@ -1,0 +1,19 @@
+/* pages/tomato.wxss */
+.tomato {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: green;
+  margin: 25px;
+  margin-top: 80px;
+  text-align:center;
+  line-height:150px;
+  color:#eee;
+  font-size:30px;
+}
+
+.options {
+  padding: 25px;
+  width: 100px;
+  color: #333;
+}

@@ -1,0 +1,9 @@
+<!--pages/tomato.wxml-->
+<view class="container">
+  <view class='tomato'>{{showTime}}</view>
+  <view class="tomato-title">
+  </view>
+  <view class="options">
+    <button bindtap="actionTomato">{{nextOption}}</button>
+  </view>
+</view>
