@@ -38,4 +38,6 @@ router.post('/friend/add', controllers.friend.add)
 router.get('/friend/list', controllers.friend.list)
 router.get('/friend/who', controllers.friend.who)
 
+router.post('/setting/save', controllers.setting.save)
+
 module.exports = router

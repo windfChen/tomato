@@ -1,0 +1,22 @@
+<!--pages/setting/setting.wxml-->
+<view class="container">
+  <view class="section section_gap">
+    <text class="section_title">工作时间（分钟）</text>
+    <view class="body-view">
+      <slider bindchange="updateValue" data-name="tomatoTime" value="{{tomatoTime}}" min="5" max="60" show-value/>
+    </view>
+  </view>
+
+  <view class="section section_gap">
+    <text class="section__title">休息时间（分钟）</text>
+    <view class="body-view">
+      <slider bindchange="updateValue" data-name="breakTime" value="{{breakTime}}" min="1" max="20" show-value/>
+    </view>
+  </view>
+
+  <view>
+    <button class="setting_btn sure_btn" bindtap="save">完成</button>
+    <button class="setting_btn ret_btn" bindtap="share">返回</button>
+  </view>
+</view>
+

@@ -88,8 +88,26 @@ Page({
   },
 
   reset: function() {
-    this.setData({ showTime: this.userSetting.workTime })
-    this.setData({ totalSecond: this.changeStr2Second(this.userSetting.workTime) })
+    var that = this;
+    userUtil.login(() => {
+      if (userUtil.logged) {
+        that.userSetting = {
+          workTime: that.changeSecond2Str(userUtil.userInfo.tomatoTime * 60),
+          restTime: that.changeSecond2Str(userUtil.userInfo.breakTime * 60)
+        }
+        this.setData({ showTime: this.userSetting.workTime })
+        this.setData({ totalSecond: this.changeStr2Second(this.userSetting.workTime) })
+      }
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    if (this.data.status == 'E' || this.data.status == '') {
+      this.reset()
+    }
   },
 
   /**

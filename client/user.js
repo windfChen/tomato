@@ -35,6 +35,14 @@ const register = function() {
 
 }
 const login = function (callback) {
+  // 如果已经登录，不在登录,直接调用
+  if (e.logged) {
+    if (callback) {
+      callback(e)
+    }
+    return
+  }
+  
   qcloud.request({
     url: config.service.requestUrl,
     login: true,

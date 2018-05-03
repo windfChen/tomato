@@ -1,4 +1,0 @@
-/* pages/story/story.wxss */
-.story-bg {
-  background-color: #eee;
-}

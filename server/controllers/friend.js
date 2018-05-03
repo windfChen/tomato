@@ -56,7 +56,6 @@ const getFriendByOpenId = async ctx => {
   const friend = await friendService.getFriendUser(userId, friendOpenId)
 
   ctx.state.data = friend
-  ctx.state.data[0].d = ctx.session.user.id
 }
 
 module.exports = {

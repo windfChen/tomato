@@ -24,6 +24,17 @@ const update = async (id, user) => {
   await db('user').update(user).where({ id })
 }
 
+const updateColumn = async (id, userInfo, ctx = false) => {
+  let user = await db('user').where({ id }).first()
+  for (var i in userInfo) {
+    user[i] = userInfo[i];
+  }
+  await update(id, user)
+  if (ctx) {
+    setUserSession(ctx, user)
+  }
+} 
+
 const createUserBySessionUser = async (openId) => {
   const sessionInfo = await db('cSessionInfo').where({ open_id: openId }).first()
   const user = JSON.parse(sessionInfo.user_info)
@@ -57,5 +68,6 @@ module.exports = {
   findByOpenId,
   update,
   setUserSession,
-  getCurrentUser
+  getCurrentUser,
+  updateColumn
 }
