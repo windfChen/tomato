@@ -6,8 +6,8 @@ const friendService = require('../service/friend.js')
 const add = async ctx => {
   const { friendOpenId} = ctx.request.body
 
-  const ls = userService.userSession.loginState
-  const openId = userService.userSession.openId;
+  const ls = userService.getCurrentUser(ctx).loginState
+  const openId = userService.getCurrentUser(ctx).openId;
 
   if (openId === undefined) {
     ctx.state.data = {
@@ -25,7 +25,7 @@ const add = async ctx => {
 }
 
 const list = async ctx => {
-  const userId = userService.userSession.id
+  const userId = userService.getCurrentUser(ctx).id
 
   if (userId === undefined) {
     ctx.state.data = {
@@ -37,13 +37,14 @@ const list = async ctx => {
   const friendList = await friendService.getByUserId(userId)
 
   ctx.state.data = friendList
+ 
 }
 
 const getFriendByOpenId = async ctx => {
   const { friendOpenId } = ctx.query
 
-  const ls = userService.userSession.loginState
-  const userId = userService.userSession.id
+  const ls = userService.getCurrentUser(ctx).loginState
+  const userId = userService.getCurrentUser(ctx).id
 
   if (ls === 0) {
     ctx.state.data = {
@@ -55,6 +56,7 @@ const getFriendByOpenId = async ctx => {
   const friend = await friendService.getFriendUser(userId, friendOpenId)
 
   ctx.state.data = friend
+  ctx.state.data[0].d = ctx.session.user.id
 }
 
 module.exports = {

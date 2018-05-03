@@ -1,5 +1,6 @@
 // 用户操作
 const { db } = require('../database')
+const session = require('../frame/session')
 
 const save = async (user) => {
   await db('user').insert(user)
@@ -40,17 +41,21 @@ const createUserBySessionUser = async (openId) => {
   return u
 }
 
-const setUserSession = async (userInfo) => {
+const setUserSession = async (ctx, userInfo) => {
   const user = await findByOpenId(userInfo.openId)
   user.loginState = 1
-  module.exports.userSession = user;
+  session.set(ctx, 'user', user)
 }
 
+const getCurrentUser = (ctx) => {
+  return session.get(ctx, 'user')
+}
 
 module.exports = {
   userSession: { loginState: 0 },
   save,
   findByOpenId,
   update,
-  setUserSession
+  setUserSession,
+  getCurrentUser
 }

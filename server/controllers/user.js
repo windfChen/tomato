@@ -6,9 +6,9 @@ const verify = async (ctx, next) => {
   // 具体查看：
   if (ctx.state.$wxInfo.loginState === 1) {
     // loginState 为 1，登录态校验成功
-    userService.setUserSession(ctx.state.$wxInfo.userinfo)
+    await userService.setUserSession(ctx, ctx.state.$wxInfo.userinfo)
 
-    ctx.state.data = userService.userSession
+    ctx.state.data = userService.getCurrentUser(ctx)
   } else {
     ctx.state.code = -1
   }

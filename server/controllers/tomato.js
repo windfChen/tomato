@@ -6,8 +6,8 @@ const userTomatoService = require('../service/userTomato.js')
 module.exports = async ctx => {
   const { title, status, note } = ctx.query
 
-  const ls = userService.userSession.loginState
-  const openId = userService.userSession.openId;
+  const ls = userService.getCurrentUser(ctx).loginState
+  const openId = userService.getCurrentUser(ctx).openId;
 
   if (openId === undefined) {
     ctx.state.data = {
