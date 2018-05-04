@@ -1,0 +1,69 @@
+/* pages/log/log.wxss *//* pages/friend/friend.wxss */
+.tomato-log {
+  height: 80rpx;
+  width:100%;
+  background:#FFF;
+  border:1px solid rgba(0, 0, 0, .1);
+  border-left:none;
+  border-right:none;
+  flex-direction:row;
+  align-items:center;
+  transition:all 300ms ease;
+}
+
+.tomato-log-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  margin: 10rpx;
+  border-radius: 50%;
+  overflow:hidden;
+  float: left;
+}
+
+.tomato-log-text {
+  overflow:hidden;
+}
+
+.tomato-log-date {
+  float: left;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-left: 5px; 
+}
+.tomato-log-date text {
+  font-size: 32rpx;
+  color: #007AFF;
+}
+
+.tomato-log-time {
+  float: right;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-right: 20rpx; 
+}
+.tomato-log-time text {
+  font-size: 32rpx;
+  color: #007AFF;
+}
+
+.tomato-log-status {
+  float: right;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-right: 10px;
+}
+.tomato-log-status text {
+  font-size: 32rpx;
+}
+.tomato-log-status-s text {
+  color: #FF7A00;
+}
+.tomato-log-status-e text {
+  color: green;
+}
+.tomato-log-status-n text {
+  color: #333;
+}
+.tomato-log-status-o {
+  color: #EE00FF;
+}

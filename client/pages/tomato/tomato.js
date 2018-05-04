@@ -167,6 +167,23 @@ Page({
 
   changeSecond2Str: (second) => {
     return Math.abs(Math.floor(second / 60)) + ':' + Math.abs(Math.floor(second % 60));
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function (options) {
+    return {
+      title: '协作番茄，只专注做一件事',
+      path: `/pages/tomato/tomato?fid=${userUtil.userInfo.openId}`,
+      imageUrl: '/pages/friend/share.png',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
   }
 
 })

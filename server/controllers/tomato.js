@@ -3,7 +3,7 @@ const userService = require('../service/user.js')
 const userTomatoService = require('../service/userTomato.js')
 
 
-module.exports = async ctx => {
+const save = async ctx => {
   const { title, status, note } = ctx.query
 
   const ls = userService.getCurrentUser(ctx).loginState
@@ -31,8 +31,21 @@ module.exports = async ctx => {
   ctx.state.data = {
     msg: `提交成功`
   }
-  
-  
+   
+}
 
-  
+const list = async ctx => {
+  const {  } = ctx.query
+
+  const ls = userService.getCurrentUser(ctx).loginState
+  const userId = userService.getCurrentUser(ctx).id;
+
+  const list = await userTomatoService.list(userId)
+
+  ctx.state.data = list
+}
+
+module.exports = {
+  save,
+  list
 }

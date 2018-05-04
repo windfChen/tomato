@@ -42,11 +42,16 @@ const login = function (callback) {
     }
     return
   }
-  
+
+  wx.showLoading({
+    title: '正在登陆',
+    mask: true
+  })
   qcloud.request({
     url: config.service.requestUrl,
     login: true,
     success(result) {
+      wx.hideLoading()
       console.log('request success', result.data.data)
       e.userInfo = result.data.data
       e.logged = true

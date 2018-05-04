@@ -24,8 +24,21 @@ module.exports = {
   },
 
   list: async (userId) => {
-    var res = mysql("user_tomato").list()
-    return res;
+    const list = await db("user_tomato").where({ fk_user_id: userId })
+
+    for (var i in list) {
+      const userTomato = list[i]
+      const startTime = userTomato.create_date
+      const endTime = userTomato.end_date
+
+      userTomato.date = startTime.getFullYear() + '-' + (startTime.getMonth() + 1) + '-' + startTime.getDate()
+      userTomato.week = '星期' + startTime.getDay() + 1
+      userTomato.timeStart = startTime.getHours() + ':' + startTime.getMinutes()
+      userTomato.tiemEnd = endTime.getHours() + ':' + endTime.getMinutes()
+      userTomato.secondUse = (startTime.getTime() - endTime.getTime()) / 1000
+    }
+
+    return list
   }
 
 }
