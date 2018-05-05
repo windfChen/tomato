@@ -16,7 +16,7 @@
 
   <view>
     <button class="setting_btn sure_btn" bindtap="save">完成</button>
-    <button class="setting_btn ret_btn" bindtap="share">返回</button>
+    <button class="setting_btn ret_btn" bindtap="cancel">返回</button>
   </view>
 </view>
 

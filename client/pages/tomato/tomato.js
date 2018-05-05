@@ -13,6 +13,8 @@ Page({
     showTime: '',
     status: '',
     nextOption: '开 始',
+    currentTodo:undefined,
+    currentIndex:-1,
 
     // 用于计算
     startTime: 0,
@@ -21,7 +23,11 @@ Page({
 
     // 用于标记
     intervalId: 0,
-    timeOut: false
+    timeOut: false,
+
+    // 用于存储
+    todos: [],
+    logs: []
   },
 
   userSetting: {},
@@ -38,6 +44,56 @@ Page({
 
     this.reset()
     userUtil.login((res) => this.addFriend(res,options.fid))
+  },
+
+  changeTodo: function () {
+    wx.navigateTo({
+      url: '/pages/todo/todo'
+    })
+  },
+
+  loadTodo: function () {
+    var todos = wx.getStorageSync('todo_list')
+    if (todos) {
+      let currentTodo = undefined
+      let currentIndex = -1
+      for (const i in todos) {
+        const td = todos[i]
+        if (!td.completed) {
+          currentTodo = td
+          currentIndex = i
+          break
+        }
+      }
+      this.setData({ todos: todos, currentTodo, currentIndex})
+    }
+    var logs = wx.getStorageSync('todo_logs')
+    if (logs) {
+      this.setData({ logs: logs })
+    }
+  },
+
+  finishTodo: function (e) {
+    var index = e.currentTarget.dataset.index
+    var todos = this.data.todos
+    todos[index].completed = !todos[index].completed
+    var logs = this.data.logs
+    logs.push({
+      timestamp: new Date(),
+      action: todos[index].completed ? '完成' : '重启',
+      name: todos[index].name
+    })
+    this.setData({
+      todos: todos,
+      logs: logs
+    })
+    this.save()
+    this.loadTodo()
+  },
+
+  save: function () {
+    wx.setStorageSync('todo_list', this.data.todos)
+    wx.setStorageSync('todo_logs', this.data.logs)
   },
 
   addFriend: function(res, friendOpenId) {
@@ -108,6 +164,7 @@ Page({
     if (this.data.status == 'E' || this.data.status == '') {
       this.reset()
     }
+    this.loadTodo()
   },
 
   /**
@@ -147,7 +204,7 @@ Page({
     qcloud.request({
       url: `${config.service.host}/weapp/tomato`,
       login: true,
-      data: {status: this.data.status, title: '', note: '' },
+      data: {status: this.data.status, title: this.data.currentTodo.name, note: '' },
       success(result) {
         const requestResult = JSON.stringify(result.data);
         console.log(requestResult)

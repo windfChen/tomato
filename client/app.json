@@ -4,7 +4,8 @@
     "pages/setting/setting",
     "pages/mine/mine",
     "pages/friend/friend",
-    "pages/log/log"
+    "pages/log/log",
+    "pages/todo/todo"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

@@ -1,0 +1,29 @@
+<!--pages/todo/todo.wxml-->
+<view class="container">
+  <view class="header">
+    <image class="plus" src="plus.png"/>
+    <input class="new-todo" value="{{ input }}" placeholder="请输入任务" focus bindinput="inputChangeHandle" bindconfirm="addTodoHandle"/>
+  </view>
+
+  <block wx:if="{{ todos.length }}">
+    <view class="menus">
+      <text class="btn" bindtap="toggleAllHandle">{{ leftCount?'完成':'重新打开' }}所有</text>
+      <text wx:if="{{ leftCount }}">还有{{ leftCount }}项任务</text>
+      <text class="btn" wx:if="{{ todos.length > leftCount }}" bindtap="clearCompletedHandle">清空已完成的任务</text>
+    </view>
+
+    <view class="todos">
+      <view class="item{{ item.completed ? ' completed' : '' }}" wx:for="{{ todos }}" wx:key="{{ index }}" bindtap="toggleTodoHandle" data-index="{{ index }}">
+        <icon class="checkbox" type="{{ item.completed ? 'success' : 'circle' }}"/>
+        <text class="name">{{ item.name }}</text>
+        <icon class="remove" type="clear" size="16" catchtap="removeTodoHandle" data-index="{{ index }}"/>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="empty">
+      <text class="title">今日待办</text>
+      <text class="content">还没有任务，添加任务后，第一个任务为番茄执行的任务</text>
+    </view>
+  </block>
+</view>
