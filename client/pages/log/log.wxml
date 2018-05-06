@@ -1,24 +1,12 @@
 <!--pages/log/log.wxml-->
 <view>
-  <view class="tomato-log" >
-    <view class="tomato-log-text">
-      <view class="tomato-log-date">
-        <text>日期</text>
-      </view>
-      <view class="tomato-log-time">
-        <text>时间</text>
-      </view>
-    </view>
+  <view class="time-bloke">
+    <text class="year">　日期　</text>
+    <text class="tome-year">　 时间范围</text>
   </view>
-  <view class="tomato-log" wx:for="{{toamtoLog}}" >
-    <view class="tomato-log-text">
-      <view class="tomato-log-date">
-        <text>{{item.date}}</text>
-      </view>
-      <view class="tomato-log-time">
-        <text>{{item.timeStart}}-{{item.tiemEnd}}</text>
-      </view>
-    </view>
+  <view class="time-bloke" wx:for="{{toamtoLog}}" wx:index="{{index}}">
+    <text class="year">{{item.date}}</text>
+    <text class="tome-year">{{item.timeStart}}-{{item.tiemEnd}}</text>
   </view>
 </view>
 

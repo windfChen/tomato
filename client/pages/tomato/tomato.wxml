@@ -1,23 +1,26 @@
 <!--pages/tomato.wxml-->
-<view class="container">
-  <view class='tomato'>{{showTime}}</view>
-  <view class="tomato-title">
-  </view>
-  <view class="options">
-    <button bindtap="actionTomato">{{nextOption}}</button>
-  </view>
-</view>
-
-  
-<view class="todos-container">
-  <view class="todos">
-    <view class="item" wx:if="{{ currentIndex != -1 }}" data-index="{{ currentIndex }}">
-      <icon class="checkbox" bindtap='finishTodo' type="{{ currentTodo.completed ? 'success' : 'circle' }}" data-index="{{ currentIndex }}"/>
-      <text class="name" bindtap="changeTodo" >{{ currentTodo.name }}</text>
-    </view>
-    <view class="item" wx:else bindtap="changeTodo" >
-      <text class="name">点击添加任务</text>
+<view>
+  <view class="page">
+    <image src="./background.jpeg" class="background"/>
+    <view class="todos-container"  >
+      <view class="todos">
+        <view class="item" wx:if="{{ currentIndex != -1 }}" data-index="{{ currentIndex }}">
+          <icon class="checkbox" bindtap='finishTodo' type="{{ currentTodo.completed ? 'success' : 'circle' }}" data-index="{{ currentIndex }}"/>
+          <text class="name" bindtap="changeTodo" >{{ currentTodo.name }}</text>
+        </view>
+        <view class="item" wx:else bindtap="changeTodo" >
+          <text class="name">点击添加任务</text>
+        </view>
+      </view>
     </view>
   </view>
+  <view class="row">
+    <image src="./tomato.png" class="pic"/>
+  </view>
+  <view class="row">
+    <text class="time-text">{{showTime}}</text>
+  </view>
+  <view class="row">
+    <button class="start-btn" bindtap="actionTomato" >{{nextOption}}</button>
+  </view>
 </view>
-

@@ -3,14 +3,14 @@
   <view class="section section_gap">
     <text class="section_title">工作时间（分钟）</text>
     <view class="body-view">
-      <slider bindchange="updateValue" data-name="tomatoTime" value="{{tomatoTime}}" min="5" max="60" show-value/>
+      <slider bindchange="updateValue" data-name="tomatoTime" value="{{tomatoTime}}" min="5" max="60" selected-color="orangered" block-color="orangered" block-size="16" show-value/>
     </view>
   </view>
 
   <view class="section section_gap">
-    <text class="section__title">休息时间（分钟）</text>
+    <text class="section_title">休息时间（分钟）</text>
     <view class="body-view">
-      <slider bindchange="updateValue" data-name="breakTime" value="{{breakTime}}" min="1" max="20" show-value/>
+      <slider bindchange="updateValue" data-name="breakTime" value="{{breakTime}}" min="1" max="20" selected-color="orangered" block-color="orangered" block-size="16"  show-value/>
     </view>
   </view>
 

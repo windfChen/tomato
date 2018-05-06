@@ -1,43 +1,83 @@
 /* pages/tomato.wxss */
-.tomato {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background-color: green;
-  margin: 25px;
-  margin-top: 80px;
-  text-align:center;
-  line-height:150px;
-  color:#eee;
-  font-size:30px;
+page {
+  background: #f0f0f2;
 }
 
-.options {
-  padding: 25px;
-  width: 100px;
-  color: #333;
+.page{
+  height: 300rpx;
+  width: 100%;
+  background-size: 100% 100%; 
+  background-repeat: no-repeat;
 }
+.myapp-login-input-text {
+  font-size: 14px;
+  line-height: 1.8;
+  border-radius: 5px;
+}
+.header {
+  padding-top: 20rpx;
+}
+.header .todo {
+  display: block;
+  padding: 15rpx 35rpx;
+  color: white;
+  margin: 0 10%;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  opacity: 0.8;
+}
+
+.row {
+  text-align: center;
+}
+.start-btn{
+  margin-top:150rpx;
+  display: block;
+  height: 80rpx;
+  width: 150rpx;
+  background-color: orangered;
+  color: white;
+  border: 1px solid orangered;
+  border-radius: calc(5px);
+  font-size: 14px;
+  line-height: 80rpx;
+}
+.time-text{
+  font-size: 18px;
+}
+.pic{
+  margin-top: 50rpx;
+  width: 250rpx;
+  height: 250rpx;
+}
+.background {
+  width: 100%;
+  height: 100%;
+}
+
 
 .todos-container {
   display:block;
   position:fixed;
-  bottom:0rpx;
+  top:20rpx;
   width:100%;
-  padding:10rpx;
   box-sizing:border-box;
-
+  color: white;
 }
 
 .todos {
   border: 1rpx solid #e0e0e0;
   border-radius: 10rpx;
+  background-color: #f9f9f9;
   box-shadow: 0 0 5rpx #e0e0e0;
+  opacity: 0.8;
+  padding: 15rpx 15rpx;
+  margin: 0 10%;
 }
 
 .todos .item {
   display: flex;
   align-items: center;
-  padding: 25rpx;
   border-bottom: 1rpx solid #e0e0e0;
 }
 

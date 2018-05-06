@@ -1,8 +1,12 @@
 /* pages/friend/friend.wxss */
+page {
+  background: #f0f0f2;
+}
+
 .friend-info {
   height: 120rpx;
   width:100%;
-  background:#FFF;
+  background:#fbfbfb;
   border:1px solid rgba(0, 0, 0, .1);
   border-left:none;
   border-right:none;
@@ -55,4 +59,14 @@
 }
 .friend-info-status-o {
   color: #EE00FF;
+}
+
+.share-btn {
+  background: #fbfbfb;
+  border: 0px solid #fff;
+  margin-top: 5px; 
+  height:40px;
+  line-height: 40px;
+  color:#888;
+  font-size:14px;
 }

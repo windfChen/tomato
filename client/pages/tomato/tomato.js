@@ -23,9 +23,10 @@ Page({
 
     // 用于标记
     intervalId: 0,
-    timeOut: false,
+    timeOufriendOpenIDt: false,
 
     // 用于存储
+    friendOpenID: undefined,
     todos: [],
     logs: []
   },
@@ -42,8 +43,9 @@ Page({
       restTime: '5:00'
     }
 
-    this.reset()
-    userUtil.login((res) => this.addFriend(res,options.fid))
+    if (options.fid) {
+      this.setData({ friendOpenID: options.fid })
+    }
   },
 
   changeTodo: function () {
@@ -65,7 +67,14 @@ Page({
           break
         }
       }
-      this.setData({ todos: todos, currentTodo, currentIndex})
+      const data = { 
+        todos: todos,
+        currentIndex 
+      }
+      if (currentTodo) {
+        data.currentTodo = currentTodo
+      }
+      this.setData(data)
     }
     var logs = wx.getStorageSync('todo_logs')
     if (logs) {
@@ -144,15 +153,19 @@ Page({
   },
 
   reset: function() {
-    var that = this;
-    userUtil.login(() => {
+    var that = this; 
+    userUtil.login((res) => {
       if (userUtil.logged) {
+        // 加载设置
         that.userSetting = {
           workTime: that.changeSecond2Str(userUtil.userInfo.tomatoTime * 60),
           restTime: that.changeSecond2Str(userUtil.userInfo.breakTime * 60)
         }
         this.setData({ showTime: this.userSetting.workTime })
         this.setData({ totalSecond: this.changeStr2Second(this.userSetting.workTime) })
+
+        // 添加朋友
+        this.addFriend(res, that.data.friendOpenID)
       }
     })
   },
@@ -204,7 +217,7 @@ Page({
     qcloud.request({
       url: `${config.service.host}/weapp/tomato`,
       login: true,
-      data: {status: this.data.status, title: this.data.currentTodo.name, note: '' },
+      data: { status: this.data.status, title: this.data.currentTodo ? this.data.currentTodo.name: undefined, note: '' },
       success(result) {
         const requestResult = JSON.stringify(result.data);
         console.log(requestResult)
@@ -218,12 +231,20 @@ Page({
 
 
   changeStr2Second: (str) => {
-    const ss = str.split(':');
-    return ss[0] * 60 + ss[1] * 1;
+    const ss = str.split(':')
+    return ss[0] * 60 + ss[1] * 1
   },
 
   changeSecond2Str: (second) => {
-    return Math.abs(Math.floor(second / 60)) + ':' + Math.abs(Math.floor(second % 60));
+    let minStr = Math.abs(Math.floor(second / 60))
+    if (minStr < 10) {
+      minStr = '0' + minStr
+    }
+    let secStr = Math.abs(Math.floor(second % 60))
+    if (secStr < 10) {
+      secStr = '0' + secStr
+    }
+    return minStr + ':' + secStr
   },
 
   /**

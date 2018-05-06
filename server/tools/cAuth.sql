@@ -71,8 +71,7 @@ CREATE TABLE `user_tomato` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户执行的番茄记录';
 
-ALTER TABLE `user` ADD COLUMN `breakTime` int COMMENT '休息时长' AFTER `tomatoStatus`, ADD COLUMN `tomatoTime` int COMMENT '番茄时长' AFTER `breakTime`;
-ALTER TABLE `user` CHANGE COLUMN `breakTime` `breakTime` int(11) DEFAULT 5 COMMENT '休息时长', CHANGE COLUMN `toamtoTime` `toamtoTime` int(11) DEFAULT 25 COMMENT '番茄时长';
-
+ALTER TABLE `user` ADD COLUMN `breakTime` int COMMENT '休息时长' , ADD COLUMN `tomatoTime` int COMMENT '番茄时长' ;
+ALTER TABLE `user` CHANGE COLUMN `breakTime` `breakTime` int(11) DEFAULT 5 COMMENT '休息时长', CHANGE COLUMN `tomatoTime` `tomatoTime` int(11) DEFAULT 25 COMMENT '番茄时长';
 
 SET FOREIGN_KEY_CHECKS = 1;

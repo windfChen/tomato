@@ -37,6 +37,7 @@
     ],
     "position": "bottom",
     "borderStyle": "white",
-    "selectedColor": "#1296db"
+    "selectedColor": "#f3593d",
+    "backgroundColor":"#F6F6F6"
   }
 }

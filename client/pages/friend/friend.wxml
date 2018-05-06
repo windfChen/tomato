@@ -16,7 +16,7 @@
       <view class="friend-info-status friend-info-status-e" wx:if="{{item.tomatoStatus == 'E'}}">
         <text>休息</text>
       </view>
-      <view class="friend-info-status friend-info-status-n" wx:if="{{item.tomatoStatus == ''}}">
+      <view class="friend-info-status friend-info-status-n" wx:if="{{item.tomatoStatus == '' || item.tomatoStatus == null}}">
         <text>未开始</text>
       </view>
       <view class="friend-info-status friend-info-status-o" wx:if="{{item.tomatoStatus == 'O'}}">
@@ -27,6 +27,8 @@
 
   <!-- 功能 -->
   <view>
-    <button open-type="share">分享添加好友</button>
+    <button class="share-btn" open-type="share">
+      <text class="friend-share-text">分享添加好友</text>
+    </button>
   </view>
 </view>

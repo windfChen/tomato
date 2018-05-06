@@ -46,14 +46,16 @@
     <!-- 番茄历史 -->
     <view class="setting">
         <navigator url="../log/log" open-type="navigate" class="setting-text">
-            <text>番茄历史</text>
+          <image class="mine-icon" src="../../images/log.png"></image>
+          <text>历史番茄</text>
         </navigator>
     </view>
 
     <!-- 设置 -->
     <view class="setting">
         <navigator url="../setting/setting" open-type="navigate" class="setting-text">
-            <text>设置</text>
+          <image class="mine-icon" src="../../images/setting.png"></image>
+          <text>设置</text>
         </navigator>
     </view>
 </view>
