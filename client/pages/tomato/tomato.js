@@ -23,7 +23,7 @@ Page({
 
     // 用于标记
     intervalId: 0,
-    timeOufriendOpenIDt: false,
+    timeOut: false,
 
     // 用于存储
     friendOpenID: undefined,
@@ -193,12 +193,16 @@ Page({
        * 定时更新
        */
       const interId = setInterval(() => {
+        if (this.data.timeOut) {
+          return
+        }
+
         const timeUsed = (new Date().getTime() - this.data.startTime) / 1000;
         this.setData({ currentSecond: this.data.totalSecond - timeUsed});
 
         if (!this.data.timeOut && this.data.currentSecond <= 0) {
           wx.vibrateLong();
-          this.setData({ timeOut:true});
+          this.setData({ timeOut: true, nextOption: '休 息',});
         }
 
         this.setData({showTime: this.changeSecond2Str(this.data.currentSecond)});
@@ -214,10 +218,14 @@ Page({
       this.reset();
     }
 
+    let stat = this.data.status
+    if (stat == 'E' && !this.data.timeOut) {
+      stat = 'C'
+    }
     qcloud.request({
       url: `${config.service.host}/weapp/tomato`,
       login: true,
-      data: { status: this.data.status, title: this.data.currentTodo ? this.data.currentTodo.name: undefined, note: '' },
+      data: { status: stat, title: this.data.currentTodo ? this.data.currentTodo.name : undefined },
       success(result) {
         const requestResult = JSON.stringify(result.data);
         console.log(requestResult)

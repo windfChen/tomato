@@ -36,7 +36,7 @@ page {
 }
 .friend-info-nickname text {
   font-size: 32rpx;
-  color: #007AFF;
+  color: #888;
 }
 
 .friend-info-status {

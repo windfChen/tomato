@@ -1,4 +1,8 @@
 /* pages/todo/todo.wxss */
+page {
+  background: #f0f0f2;
+}
+
 .container {
   padding: 30rpx;
   border-top: 1rpx solid #e5e5e5;
