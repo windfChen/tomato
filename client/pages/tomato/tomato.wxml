@@ -2,7 +2,7 @@
 <view>
   <view class="page">
     <image src="./background.jpeg" class="background"/>
-    <view class="todos-container"  >
+    <view class="todos-container" wx:if="{{!hideTodo}}" >
       <view class="todos">
         <view class="item" wx:if="{{ currentIndex != -1 }}" data-index="{{ currentIndex }}">
           <icon class="checkbox" bindtap='finishTodo' type="{{ currentTodo.completed ? 'success' : 'circle' }}" data-index="{{ currentIndex }}"/>

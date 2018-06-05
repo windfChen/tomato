@@ -1,39 +1,14 @@
 
-var qcloud = require('./vendor/wafer2-client-sdk/index')
-var config = require('./config')
-var util = require('./utils/util.js')
+var qcloud = require('../vendor/wafer2-client-sdk/index')
+var config = require('../config')
+var util = require('../utils/util')
 
 const e = {
   logged : false,
   userInfo : undefined
 
 }
-const register = function() {
-  if (logged) return
 
-  util.showBusy('正在登录')
-  var that = this
-
-  // 调用登录接口
-  qcloud.login({
-    success(result) {
-      if (result) {
-        util.showSuccess('登录成功!')
-        e.userInfo = result
-        e.logged = true
-      } else {
-        // 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
-        login();
-      }
-    },
-
-    fail(error) {
-      // util.showModel('登录失败', error)
-      console.log('登录失败', error)
-    }
-  })
-
-}
 const login = function (callback) {
   // 如果已经登录，不在登录,直接调用
   if (e.logged) {

@@ -108,8 +108,8 @@ var login = function login(options) {
                 if (data && data.code === 0 && data.data.skey) {
                     var res = data.data
                     if (res.userinfo) {
-                        Session.set(res.skey);
-                        options.success(userInfo);
+                        Session.set(res);
+                        options.success(res.userinfo);
                     } else {
                         var errorMessage = '登录失败(' + data.error + ')：' + (data.message || '未知错误');
                         var noSessionError = new LoginError(constants.ERR_LOGIN_SESSION_NOT_RECEIVED, errorMessage);
@@ -132,10 +132,10 @@ var login = function login(options) {
     });
 
     var session = Session.get();
-    if (session) {
+    if (!session) {
         wx.checkSession({
             success: function () {
-                options.success(session.userInfo);
+                options.success(session.userinfo);
             },
 
             fail: function () {

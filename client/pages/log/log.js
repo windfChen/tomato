@@ -1,7 +1,7 @@
 // pages/log/log.js
 var qcloud = require('../../vendor/wafer2-client-sdk/index')
 var config = require('../../config')
-var userUtil = require('../../user')
+var userUtil = require('../../services/user')
 var util = require('../../utils/util.js')
 Page({
 

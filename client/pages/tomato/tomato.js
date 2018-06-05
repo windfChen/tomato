@@ -1,8 +1,9 @@
 // pages/tomato.js
 var qcloud = require('../../vendor/wafer2-client-sdk/index')
 var config = require('../../config')
-var userUtil = require('../../user')
+var userUtil = require('../../services/user')
 var util = require('../../utils/util.js')
+var net = require('../../utils/net.js')
 
 Page({
 
@@ -24,6 +25,7 @@ Page({
     // 用于标记
     intervalId: 0,
     timeOut: false,
+    hideTodo: true,
 
     // 用于存储
     friendOpenID: undefined,
@@ -105,8 +107,8 @@ Page({
     wx.setStorageSync('todo_logs', this.data.logs)
   },
 
-  addFriend: function(res, friendOpenId) {
-    if (friendOpenId && friendOpenId != res.userInfo.openId) {
+  addFriend: function (userInfo, friendOpenId) {
+    if (friendOpenId && friendOpenId != userInfo.openId) {
 
       qcloud.request({
         url: `${config.service.host}/weapp/friend/who`,
@@ -154,19 +156,19 @@ Page({
 
   reset: function() {
     var that = this; 
-    userUtil.login((res) => {
-      if (userUtil.logged) {
-        // 加载设置
-        that.userSetting = {
-          workTime: that.changeSecond2Str(userUtil.userInfo.tomatoTime * 60),
-          restTime: that.changeSecond2Str(userUtil.userInfo.breakTime * 60)
-        }
-        this.setData({ showTime: this.userSetting.workTime })
-        this.setData({ totalSecond: this.changeStr2Second(this.userSetting.workTime) })
-
-        // 添加朋友
-        this.addFriend(res, that.data.friendOpenID)
+    net.afterLogin((userInfo) => {
+      console.log(userInfo)
+      // 加载设置
+      that.userSetting = {
+        workTime: that.changeSecond2Str(userInfo.tomatoTime * 60),
+        restTime: that.changeSecond2Str(userInfo.breakTime * 60)
       }
+      this.setData({ showTime: this.userSetting.workTime })
+      this.setData({ totalSecond: this.changeStr2Second(this.userSetting.workTime) })
+      this.setData({ hideTodo: userInfo.hideTodo == 1 })
+
+      // 添加朋友
+      this.addFriend(userInfo, that.data.friendOpenID)
     })
   },
 
@@ -202,7 +204,7 @@ Page({
 
         if (!this.data.timeOut && this.data.currentSecond <= 0) {
           wx.vibrateLong();
-          this.setData({ timeOut: true, nextOption: '休 息',});
+          this.setData({ timeOut: true, nextOption: '休 息'});
         }
 
         this.setData({showTime: this.changeSecond2Str(this.data.currentSecond)});
