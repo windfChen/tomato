@@ -34,7 +34,7 @@ page {
   margin-top:150rpx;
   display: block;
   height: 80rpx;
-  width: 150rpx;
+  width: 210rpx;
   background-color: orangered;
   color: white;
   border: 1px solid orangered;

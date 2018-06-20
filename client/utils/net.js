@@ -6,7 +6,8 @@ var loginLib = require('../vendor/wafer2-client-sdk/lib/login')
 const defaultOptions = {
   login: true,
   method: 'get',
-  waitMsg: undefined
+  waitMsg: undefined,
+  complete: util.noop
 }
 
 /**
@@ -22,20 +23,20 @@ const defaultOptions = {
  * @param {Function} [options.complete(error)] 无论请求成功与否都执行的函数
  */
 const request = (options) => {
-  config = util.extend({}, defaultOptions, options)
+  options = util.extend({}, defaultOptions, options)
 
   // 动态参数
-  if (!config.waitMsg) {
-    config.waitMsg = config.method == 'get' ? '加载中' : '提交中'
+  if (!options.waitMsg) {
+    options.waitMsg = options.method == 'get' ? '加载中' : '提交中'
   }
 
-  dialog.showBusy(config.waitMsg) // 开始加载
+  dialog.showBusy(options.waitMsg) // 开始加载
 
   // 发出请求
-  requestLib.request(util.extend({}, config, {
+  requestLib.request(util.extend({}, options, {
     complete: function() {
       dialog.hideBusy() // 加载完成
-      config.complete.apply(null, arguments)
+      options.complete.apply(null, arguments)
     }
   }))
 }

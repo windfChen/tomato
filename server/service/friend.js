@@ -1,6 +1,6 @@
 // 用户操作
 const { db } = require('../database')
-const userService = require('../service/user.js')
+const userService = require('../service/user')
 const tableName = 'user_friend'
 
 const save = async (openId, friendOpenId) => {

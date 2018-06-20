@@ -72,7 +72,7 @@ var defaultOptions = {
 var login = function login(options) {
     options = utils.extend({}, defaultOptions, options);
 
-    if (!defaultOptions.loginUrl) {
+    if (!options.loginUrl) {
         options.fail(new LoginError(constants.ERR_INVALID_PARAMS, '登录错误：缺少登录地址，请通过 setLoginUrl() 方法设置登录地址'));
         return;
     }
@@ -132,7 +132,7 @@ var login = function login(options) {
     });
 
     var session = Session.get();
-    if (!session) {
+    if (session) {
         wx.checkSession({
             success: function () {
                 options.success(session.userinfo);

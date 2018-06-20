@@ -29,4 +29,6 @@ const extend = (target, ...sources) => {
   return target;
 }
 
-module.exports = { formatTime, extend }
+const noop = function noop() { };
+
+module.exports = { formatTime, extend, noop }

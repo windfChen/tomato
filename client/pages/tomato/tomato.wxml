@@ -21,6 +21,6 @@
     <text class="time-text">{{showTime}}</text>
   </view>
   <view class="row">
-    <button class="start-btn" bindtap="actionTomato" >{{nextOption}}</button>
+    <button class="start-btn" bindtap="actionTomato" >{{status == 'N'? '开 始': status == 'E'? '休 息': status == 'S'? '放 弃': status == 'B'? '结束休息': ''}}</button>
   </view>
 </view>

@@ -4,6 +4,8 @@ var config = require('../../config')
 var userUtil = require('../../services/user')
 var util = require('../../utils/util.js')
 var net = require('../../utils/net.js')
+var tomato = require('../../services/tomato.js')
+var friend = require('../../services/friend.js')
 
 Page({
 
@@ -13,41 +15,49 @@ Page({
   data: {
     showTime: '',
     status: '',
-    nextOption: '开 始',
-    currentTodo:undefined,
-    currentIndex:-1,
 
-    // 用于计算
-    startTime: 0,
-    totalSecond: 25 * 60,
-    currentSecond: 0,
-
-    // 用于标记
-    intervalId: 0,
-    timeOut: false,
-    hideTodo: true,
+    hideTodo: false,
+    currentTodo: undefined,
+    currentIndex: -1,
+    todos: [],
+    logs: [],
 
     // 用于存储
-    friendOpenID: undefined,
-    todos: [],
-    logs: []
+    friendOpenID: undefined
   },
 
-  userSetting: {},
+  initTomato: function () {
+    tomato.init({
+      setData: (data) => {
+        this.setData(data)
+      }
+    })
 
+    this.resetTomato()
+  },
+
+  resetTomato: function() {
+    // 更新番茄设置
+    net.afterLogin((userInfo) => {
+      tomato.updateUserSetting({
+        tomatoTime: userInfo.tomatoTime * 60,
+        breakTime: userInfo.breakTime * 60
+      })
+    })
+  },
 
   /**
-   * 生命周期函数--监听页面加载
+   * 点击事件番茄控制按钮
    */
-  onLoad: function (options) {
-    this.userSetting = {
-      workTime: '25:00',
-      restTime: '5:00'
-    }
+  actionTomato: function () {
+    tomato.changeStatus()
+  },
 
-    if (options.fid) {
-      this.setData({ friendOpenID: options.fid })
-    }
+  resetTodo: function () {
+    net.afterLogin((userInfo) => {
+      // 加载设置
+      this.setData({ hideTodo: userInfo.hideTodo == 1 })
+    })
   },
 
   changeTodo: function () {
@@ -154,22 +164,18 @@ Page({
 
   },
 
-  reset: function() {
-    var that = this; 
-    net.afterLogin((userInfo) => {
-      console.log(userInfo)
-      // 加载设置
-      that.userSetting = {
-        workTime: that.changeSecond2Str(userInfo.tomatoTime * 60),
-        restTime: that.changeSecond2Str(userInfo.breakTime * 60)
-      }
-      this.setData({ showTime: this.userSetting.workTime })
-      this.setData({ totalSecond: this.changeStr2Second(this.userSetting.workTime) })
-      this.setData({ hideTodo: userInfo.hideTodo == 1 })
 
-      // 添加朋友
-      this.addFriend(userInfo, that.data.friendOpenID)
-    })
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    // 加载番茄
+    this.initTomato()
+    // 加载朋友
+    if (options.fid) {
+      this.setData({ friendOpenID: options.fid })
+    }
   },
 
   /**
@@ -180,81 +186,6 @@ Page({
       this.reset()
     }
     this.loadTodo()
-  },
-
-  /**
-   * 点击事件
-   */
-  actionTomato: function () { // 还没开始
-    if (this.data.status == '' || this.data.status == 'E') {
-      /**
-       * 开始计时
-       */
-      this.setData({startTime:new Date().getTime()});
-      /**
-       * 定时更新
-       */
-      const interId = setInterval(() => {
-        if (this.data.timeOut) {
-          return
-        }
-
-        const timeUsed = (new Date().getTime() - this.data.startTime) / 1000;
-        this.setData({ currentSecond: this.data.totalSecond - timeUsed});
-
-        if (!this.data.timeOut && this.data.currentSecond <= 0) {
-          wx.vibrateLong();
-          this.setData({ timeOut: true, nextOption: '休 息'});
-        }
-
-        this.setData({showTime: this.changeSecond2Str(this.data.currentSecond)});
-      }, 50);
-      this.setData({ intervalId: interId});
-      /**
-       * 设置状态
-       */
-      this.setData({status:'S', nextOption: '放 弃'});
-    } else if (this.data.status == 'S') { // 已经开始了
-      clearInterval(this.data.intervalId);
-      this.setData({ status: 'E', nextOption: '开 始', timeOut:false });
-      this.reset();
-    }
-
-    let stat = this.data.status
-    if (stat == 'E' && !this.data.timeOut) {
-      stat = 'C'
-    }
-    qcloud.request({
-      url: `${config.service.host}/weapp/tomato`,
-      login: true,
-      data: { status: stat, title: this.data.currentTodo ? this.data.currentTodo.name : undefined },
-      success(result) {
-        const requestResult = JSON.stringify(result.data);
-        console.log(requestResult)
-      },
-      fail(error) {
-        // util.showModel('请求失败', error);
-        console.log('request fail', error);
-      }
-    })
-  },
-
-
-  changeStr2Second: (str) => {
-    const ss = str.split(':')
-    return ss[0] * 60 + ss[1] * 1
-  },
-
-  changeSecond2Str: (second) => {
-    let minStr = Math.abs(Math.floor(second / 60))
-    if (minStr < 10) {
-      minStr = '0' + minStr
-    }
-    let secStr = Math.abs(Math.floor(second % 60))
-    if (secStr < 10) {
-      secStr = '0' + secStr
-    }
-    return minStr + ':' + secStr
   },
 
   /**

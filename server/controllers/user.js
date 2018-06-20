@@ -1,4 +1,4 @@
-const userService = require('../service/user.js')
+const userService = require('../service/user')
 
 const verify = async (ctx, next) => {
   // 通过 Koa 中间件进行登录态校验之后

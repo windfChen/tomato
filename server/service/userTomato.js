@@ -1,6 +1,6 @@
 // 用户的番茄记录
 const { db } = require('../database')
-const userService = require('../service/user.js')
+const userService = require('../service/user')
 
 module.exports = {
   start: async (openId) => {
