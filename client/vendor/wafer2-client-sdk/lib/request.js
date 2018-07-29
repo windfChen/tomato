@@ -9,7 +9,7 @@ var buildAuthHeader = function buildAuthHeader(session) {
     var header = {};
 
     if (session) {
-        header[constants.WX_HEADER_SKEY] = session;
+      header[constants.WX_HEADER_SKEY] = session.skey;
     }
 
     return header;

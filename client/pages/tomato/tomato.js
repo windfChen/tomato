@@ -26,6 +26,9 @@ Page({
     friendOpenID: undefined
   },
 
+  /**
+   * 初始化番茄
+   */
   initTomato: function () {
     tomato.init({
       setData: (data) => {
@@ -36,6 +39,9 @@ Page({
     this.resetTomato()
   },
 
+  /**
+   * 重置番茄状态
+   */
   resetTomato: function() {
     // 更新番茄设置
     net.afterLogin((userInfo) => {
@@ -120,7 +126,7 @@ Page({
   addFriend: function (userInfo, friendOpenId) {
     if (friendOpenId && friendOpenId != userInfo.openId) {
 
-      qcloud.request({
+      net.request({
         url: `${config.service.host}/weapp/friend/who`,
         login: true,
         data: { friendOpenId },
@@ -151,7 +157,6 @@ Page({
                   console.log(requestResult)
                 },
                 fail(error) {
-                  // util.showModel('请求失败', error);
                   console.log('request fail', error);
                 }
               })
@@ -170,11 +175,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
+
     // 加载番茄
     this.initTomato()
     // 加载朋友
     if (options.fid) {
-      this.setData({ friendOpenID: options.fid })
+      net.afterLogin((userInfo) => {
+        this.addFriend(userInfo, options.fid)
+      })
     }
   },
 

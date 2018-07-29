@@ -4,7 +4,7 @@
 	"miniprogramRoot": "./client",
 	"qcloudRoot": "./server",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -13,5 +13,33 @@
 	"appid": "wxcc2d68902d43ccf1",
 	"projectname": "%E5%8D%8F%E4%BD%9C%E7%95%AA%E8%8C%84",
 	"compileType": "miniprogram",
-	"condition": {}
+	"libVersion": "2.1.1",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 0,
+			"list": [
+				{
+					"id": -1,
+					"name": "添加好友",
+					"pathName": "pages/tomato/tomato",
+					"query": "fid=2"
+				}
+			]
+		}
+	}
 }
